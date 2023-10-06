@@ -17,6 +17,8 @@ public class WordleSolver {
 
 		public static void setAnswer() {
 //			set answer
+			int index = (int)(Math.random()*possibleAnswer.size());
+			answer = possibleAnswer.get(index);
 		}
 
 		public static void importData(String filename) {
