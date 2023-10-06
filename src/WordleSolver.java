@@ -58,16 +58,13 @@ public class WordleSolver {
 
 		}
 
-		public int countLetter(String word) {
-			int count = 0;
+		public int countLetter(String word, char letter) {
+			int count = 1;
 			char[] wordAsArray = word.toCharArray();
-			for (int i = 0; i < wordAsArray.length; i++) {
-				char currentLetter = word.charAt(i);
-				for (int j = i+1; j < wordAsArray.length; j++) {
-					if (currentLetter == wordAsArray[j]) {
+				for (int i = 0; i < wordAsArray.length; i++) {
+					if (letter == wordAsArray[i]) {
 						count = count+1;
-						wordAsArray[j] = 0;
-					}
+						wordAsArray[i] = 0;
 				}
 			}
 			return count;
