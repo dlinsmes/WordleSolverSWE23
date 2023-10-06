@@ -10,6 +10,7 @@ public class WordleSolver {
 		private final static int grey = 0;
 
 
+
 		public static void main(String[] args) {
 		}
 
@@ -61,9 +62,36 @@ public class WordleSolver {
 				return possibleWords.get(index);
 
 		}
-		public static void narrowList(){
+		public static void narrowList(String guess, int[] feedback){
+			int GREEN = 2;
+			int YELLOW = 1;
+			int GREY = 0;
 
+			for(int i = 0; i < 5; i++){
+				if(feedback[i] == GREEN){
+					for (String word:possibleAnswers) {
+						if(word.charAt(i) != GREEN)
+							possibleAnswers.remove(word);
+					}
+				}
+			}
+			for(int i = 0; i < 5; i++){
+				if(feedback[i] == YELLOW){
+					for (String word:possibleAnswers) {
+						boolean haveYellow = false;
+						for(int j = 0; j < 5; j++){
+							if(word.charAt(j)==YELLOW && j != i)
+								haveYellow = true;
+						}
+						if(!haveYellow)
+							possibleAnswers.remove(word);
+
+					}
+				}
+			}
 		}
+
+
 
 		public int countLetter(String word, char letter) {
 			int count = 0;
