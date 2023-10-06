@@ -1,16 +1,30 @@
 import java.util.ArrayList;
+import com.opencsv.CSVReader;
+import java.io.FileReader;
 
 public class WordleSolver {
 		private static String answer;
 
-		private static ArrayList<String> possibleWords;
-		private static ArrayList<String> possibleAnswer;
+		private static ArrayList<String> possibleWords = new ArrayList<>();;
+		private static ArrayList<String> possibleAnswer = new ArrayList<>();
 		private final static int green = 2;
 		private final static int yellow = 1;
 		private final static int grey = 0;
 
 
 		public static void main(String[] args) {
+				importData("Words.csv");
+//				print all words in possible words
+
+				for (int i = 0; i < possibleWords.size(); i++) {
+						System.out.println( i + ": " + possibleWords.get(i));
+				}
+				System.out.println("End of possible words");
+
+				System.out.println("Possible Answers: ");
+				for (int i = 0; i < possibleAnswer.size(); i++) {
+						System.out.println(i + ": " +possibleAnswer.get(i));
+				}
 
 		}
 
@@ -18,8 +32,22 @@ public class WordleSolver {
 //			set answer
 		}
 
-		public static void importData() {
-//				import csv data for possible words
+		public static void importData(String filename) {
+				ArrayList<String[]> data = CSVImporter.importData(filename);
+				for (int i = 1; i < data.size(); i++) {
+						String word = data.get(i)[1];
+						if(word.length() == 5) {
+								possibleWords.add(word);
+						}
+				}
+				for(int i = 1; i < data.size(); i++) {
+						String word = data.get(i)[2];
+						if(word.length() == 5) {
+								possibleWords.add(word);
+								possibleAnswer.add(word);
+						}
+
+				}
 		}
 
 		public int[] giveFeedback(String guess) {
