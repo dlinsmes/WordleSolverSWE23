@@ -47,6 +47,13 @@ public class WordleSolver {
 					feedback[i] = green;
 				}
 			}
+			for(int i = 0; i < guess.length(); i++){
+				if(guess.indexOf(answer.charAt(i)) == -1){
+					//indexOf pass in a substring give you negative one if its not there
+					feedback[i]= grey;
+				}
+			}
+
 
 				return feedback;
 		}
