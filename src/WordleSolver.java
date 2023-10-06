@@ -61,7 +61,7 @@ public class WordleSolver {
 		}
 
 		public int countLetter(String word, char letter) {
-			int count = 1;
+			int count = 0;
 			char[] wordAsArray = word.toCharArray();
 				for (int i = 0; i < wordAsArray.length; i++) {
 					if (letter == wordAsArray[i]) {
