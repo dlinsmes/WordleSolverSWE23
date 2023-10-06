@@ -50,8 +50,10 @@ public class WordleSolver {
 				return feedback;
 		}
 
-		public static void attemptGuess(){
-
+		public static String attemptGuess(){
+//				choose a random word from possible words and return it
+				int index = (int)(Math.random()* possibleWords.size());
+				return possibleWords.get(index);
 
 		}
 		public static void narrowList(){
