@@ -1,12 +1,10 @@
 import java.util.ArrayList;
-import com.opencsv.CSVReader;
-import java.io.FileReader;
 
 public class WordleSolver {
 		private static String answer;
 
 		private static ArrayList<String> possibleWords = new ArrayList<>();;
-		private static ArrayList<String> possibleAnswer = new ArrayList<>();
+		private static ArrayList<String> possibleAnswers = new ArrayList<>();
 		private final static int green = 2;
 		private final static int yellow = 1;
 		private final static int grey = 0;
@@ -17,8 +15,8 @@ public class WordleSolver {
 
 		public static void setAnswer() {
 //			set answer
-			int index = (int)(Math.random()*possibleAnswer.size());
-			answer = possibleAnswer.get(index);
+			int index = (int)(Math.random()* possibleAnswers.size());
+			answer = possibleAnswers.get(index);
 		}
 
 		public static void importData(String filename) {
@@ -33,7 +31,7 @@ public class WordleSolver {
 						String word = data.get(i)[2];
 						if(word.length() == 5) {
 								possibleWords.add(word);
-								possibleAnswer.add(word);
+								possibleAnswers.add(word);
 						}
 
 				}
@@ -46,12 +44,14 @@ public class WordleSolver {
 				if(guess.charAt(i)==answer.charAt(i)){
 					feedback[i] = green;
 				}
+
 			}
 
 				return feedback;
 		}
 
 		public static void attemptGuess(){
+
 
 		}
 		public static void narrowList(){
