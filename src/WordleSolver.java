@@ -13,19 +13,6 @@ public class WordleSolver {
 
 
 		public static void main(String[] args) {
-				importData("Words.csv");
-//				print all words in possible words
-
-				for (int i = 0; i < possibleWords.size(); i++) {
-						System.out.println( i + ": " + possibleWords.get(i));
-				}
-				System.out.println("End of possible words");
-
-				System.out.println("Possible Answers: ");
-				for (int i = 0; i < possibleAnswer.size(); i++) {
-						System.out.println(i + ": " +possibleAnswer.get(i));
-				}
-
 		}
 
 		public static void setAnswer() {
