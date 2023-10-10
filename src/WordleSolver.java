@@ -12,6 +12,25 @@ public class WordleSolver {
 
 
 		public static void main(String[] args) {
+
+				int guessesAttempted = 0;
+
+				importData("Words.csv");
+				setAnswer();
+				System.out.println("The answer is: " + answer);
+				String guess = "Filler";
+				int[] feedback;
+
+				while(!guess.equals(answer)){
+					guess = attemptGuess();
+					System.out.println("Guessing: " + guess);
+					feedback = giveFeedback(guess);
+					narrowList(guess, feedback);
+					System.out.println("There are " + possibleWords.size() + " possible words left");
+					guessesAttempted++;
+				}
+
+				System.out.println(answer + " Was found in " + guessesAttempted + "guesses");
 		}
 
 		public static void setAnswer() {
@@ -38,16 +57,12 @@ public class WordleSolver {
 				}
 		}
 
-		public int[] giveFeedback(String guess) {
+		public static int[] giveFeedback(String guess) {
 			//check green: go through every letter of their guess and check if the letter at the index matches the final word
-
 			int[] feedback = new int[guess.length()];
-			char[] letters = guess.toCharArray();
-			char[] answerLetters = answer.toCharArray();
 			for(int i = 0; i < guess.length(); i++){
 				if(guess.charAt(i)==answer.charAt(i)){
 					feedback[i] = green;
-					letters[i] = '&';
 				}
 
 			}
@@ -55,23 +70,8 @@ public class WordleSolver {
 				if(guess.indexOf(answer.charAt(i)) == -1){
 					//indexOf pass in a substring give you negative one if its not there
 					feedback[i]= grey;
-					letters[i]= '&';
 				}
 			}
-			//check for yellow
-			for(int i=0; i< guess.length(); i++){
-				for(int j=0; j< answer.length(); j++){
-					if(letters[i] == answerLetters[j]){
-						feedback[i] = yellow;
-						answerLetters[j] = '-';
-						j = answer.length();
-					}
-				}
-
-
-			}
-
-
 				return feedback;
 		}
 
