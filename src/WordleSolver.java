@@ -12,6 +12,26 @@ public class WordleSolver {
 
 
 		public static void main(String[] args) {
+
+				int guessesAttempted = 0;
+
+				importData("Words.csv");
+				setAnswer();
+				System.out.println("The answer is: " + answer);
+				String guess = "Filler";
+				int[] feedback;
+
+				while(!guess.equals(answer)){
+					guess = attemptGuess();
+					System.out.println("Guessing: " + guess);
+					feedback = giveFeedback(guess);
+					narrowList(guess, feedback);
+					System.out.println("There are " + possibleWords.size() + " possible words left");
+					guessesAttempted++;
+				}
+
+				System.out.println(answer + " Was found in " + guessesAttempted + "guesses");
+
 		}
 
 		public static void setAnswer() {
@@ -38,7 +58,7 @@ public class WordleSolver {
 				}
 		}
 
-		public int[] giveFeedback(String guess) {
+		public static int[] giveFeedback(String guess) {
 			//check green: go through every letter of their guess and check if the letter at the index matches the final word
 			int[] feedback = new int[guess.length()];
 			for(int i = 0; i < guess.length(); i++){
