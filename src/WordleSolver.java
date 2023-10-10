@@ -93,13 +93,11 @@ public class WordleSolver {
 
 
 
-		public int countLetter(String word, char letter) {
+		public static int countLetter(String word, char letter) {
 			int count = 0;
-			char[] wordAsArray = word.toCharArray();
-				for (int i = 0; i < wordAsArray.length; i++) {
-					if (letter == wordAsArray[i]) {
-						count = count+1;
-						wordAsArray[i] = 0;
+			for(int i = 0; i < word.length(); i++){
+				if(word.charAt(i) == letter) {
+						count++;
 				}
 			}
 			return count;
