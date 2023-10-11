@@ -30,7 +30,7 @@ public class WordleSolver {
 					guessesAttempted++;
 				}
 
-				System.out.println(answer + " Was found in " + guessesAttempted + "guesses");
+				System.out.println(answer + " was found in " + guessesAttempted + " guesses");
 		}
 
 		public static void setAnswer() {
@@ -98,12 +98,11 @@ public class WordleSolver {
 //				choose a random word from possible words and return it
 				int index = (int)(Math.random()* possibleWords.size());
 				return possibleWords.get(index);
-
 		}
 	public static void narrowList(String guess, int[] feedback){
-// if theres only one green e and one gray e delete everything with multipul es
-//        make sure that you check that there is the amount of letters if theres two es remove
-//        if theres a gray you know the exact number of charecters but if theres no green then
+// if there's only one green e and one gray e delete everything with multiple es
+//        make sure that you check that there is the amount of letters if there's two es remove
+//        if there's a gray you know the exact number of characters but if there's no green then
 		for(int i = 0; i < 5; i++){
 			if(feedback[i] == GREEN){
 				for (int k = 0; k < possibleAnswers.size(); k++){
@@ -128,7 +127,6 @@ public class WordleSolver {
 						possibleAnswers.remove(k);
 						k--;
 					}
-
 
 				}
 			}
