@@ -5,9 +5,9 @@ public class WordleSolver {
 
 		private static ArrayList<String> possibleWords = new ArrayList<>();;
 		private static ArrayList<String> possibleAnswers = new ArrayList<>();
-		private final static int green = 2;
-		private final static int yellow = 1;
-		private final static int grey = 0;
+		private final static int GREEN = 2;
+		private final static int YELLOW = 1;
+		private final static int GREY = 0;
 
 
 
@@ -57,22 +57,41 @@ public class WordleSolver {
 				}
 		}
 
-		public static int[] giveFeedback(String guess) {
+	public static int[] giveFeedback(String guess) {
 			//check green: go through every letter of their guess and check if the letter at the index matches the final word
+
 			int[] feedback = new int[guess.length()];
+			char[] letters = guess.toCharArray();
+			char[] answerLetters = answer.toCharArray();
 			for(int i = 0; i < guess.length(); i++){
 				if(guess.charAt(i)==answer.charAt(i)){
-					feedback[i] = green;
+					feedback[i] = GREEN;
+					letters[i] = '&';
 				}
 
 			}
 			for(int i = 0; i < guess.length(); i++){
 				if(guess.indexOf(answer.charAt(i)) == -1){
 					//indexOf pass in a substring give you negative one if its not there
-					feedback[i]= grey;
+					feedback[i]= GREY;
+					letters[i]= '&';
 				}
 			}
-				return feedback;
+			//check for yellow
+			for(int i=0; i< guess.length(); i++){
+				for(int j=0; j< answer.length(); j++){
+					if(letters[i] == answerLetters[j]){
+						feedback[i] = YELLOW;
+						answerLetters[j] = '-';
+						j = answer.length();
+					}
+				}
+
+
+			}
+
+
+			return feedback;
 		}
 
 		public static String attemptGuess(){
@@ -82,9 +101,6 @@ public class WordleSolver {
 
 		}
 		public static void narrowList(String guess, int[] feedback){
-			int GREEN = 2;
-			int YELLOW = 1;
-			int GREY = 0;
 
 			for(int i = 0; i < 5; i++){
 				if(feedback[i] == GREEN){
