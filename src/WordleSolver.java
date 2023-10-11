@@ -71,7 +71,7 @@ public class WordleSolver {
 
 		}
 		for(int i = 0; i < guess.length(); i++){
-			if(guess.indexOf(answer.charAt(i)) == -1){
+			if(answer.indexOf(guess.charAt(i)) == -1){
 				//indexOf pass in a substring give you negative one if its not there
 				feedback[i]= GREY;
 				letters[i]= '&';
