@@ -57,23 +57,42 @@ public class WordleSolver {
 				}
 		}
 
-		public static int[] giveFeedback(String guess) {
-			//check green: go through every letter of their guess and check if the letter at the index matches the final word
-			int[] feedback = new int[guess.length()];
-			for(int i = 0; i < guess.length(); i++){
-				if(guess.charAt(i)==answer.charAt(i)){
-					feedback[i] = GREEN;
-				}
+	public static int[] giveFeedback(String guess) {
+		//check green: go through every letter of their guess and check if the letter at the index matches the final word
 
+		int[] feedback = new int[guess.length()];
+		char[] letters = guess.toCharArray();
+		char[] answerLetters = answer.toCharArray();
+		for(int i = 0; i < guess.length(); i++){
+			if(guess.charAt(i)==answer.charAt(i)){
+				feedback[i] = GREEN;
+				letters[i] = '&';
 			}
-			for(int i = 0; i < guess.length(); i++){
-				if(guess.indexOf(answer.charAt(i)) == -1){
-					//indexOf pass in a substring give you negative one if its not there
-					feedback[i]= GREY;
+
+		}
+		for(int i = 0; i < guess.length(); i++){
+			if(guess.indexOf(answer.charAt(i)) == -1){
+				//indexOf pass in a substring give you negative one if its not there
+				feedback[i]= GREY;
+				letters[i]= '&';
+			}
+		}
+		//check for yellow
+		for(int i=0; i< guess.length(); i++){
+			for(int j=0; j< answer.length(); j++){
+				if(letters[i] == answerLetters[j]){
+					feedback[i] = YELLOW;
+					answerLetters[j] = '-';
+					j = answer.length();
 				}
 			}
-				return feedback;
+
+
 		}
+
+
+		return feedback;
+	}
 
 		public static String attemptGuess(){
 //				choose a random word from possible words and return it
