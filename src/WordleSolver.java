@@ -57,16 +57,12 @@ public class WordleSolver {
 				}
 		}
 
-	public static int[] giveFeedback(String guess) {
+		public static int[] giveFeedback(String guess) {
 			//check green: go through every letter of their guess and check if the letter at the index matches the final word
-
 			int[] feedback = new int[guess.length()];
-			char[] letters = guess.toCharArray();
-			char[] answerLetters = answer.toCharArray();
 			for(int i = 0; i < guess.length(); i++){
 				if(guess.charAt(i)==answer.charAt(i)){
 					feedback[i] = GREEN;
-					letters[i] = '&';
 				}
 
 			}
@@ -74,24 +70,9 @@ public class WordleSolver {
 				if(guess.indexOf(answer.charAt(i)) == -1){
 					//indexOf pass in a substring give you negative one if its not there
 					feedback[i]= GREY;
-					letters[i]= '&';
 				}
 			}
-			//check for yellow
-			for(int i=0; i< guess.length(); i++){
-				for(int j=0; j< answer.length(); j++){
-					if(letters[i] == answerLetters[j]){
-						feedback[i] = YELLOW;
-						answerLetters[j] = '-';
-						j = answer.length();
-					}
-				}
-
-
-			}
-
-
-			return feedback;
+				return feedback;
 		}
 
 		public static String attemptGuess(){
@@ -100,35 +81,46 @@ public class WordleSolver {
 				return possibleWords.get(index);
 
 		}
-		public static void narrowList(String guess, int[] feedback){
-
-			for(int i = 0; i < 5; i++){
-				if(feedback[i] == GREEN){
-					for (String word:possibleAnswers) {
-						if(word.charAt(i) != GREEN)
-							possibleAnswers.remove(word);
+	public static void narrowList(String guess, int[] feedback){
+// if theres only one green e and one gray e delete everything with multipul es
+//        make sure that you check that there is the amount of letters if theres two es remove
+//        if theres a gray you know the exact number of charecters but if theres no green then
+		for(int i = 0; i < 5; i++){
+			if(feedback[i] == GREEN){
+				for (int k = 0; k < possibleAnswers.size(); k++){
+					if(possibleAnswers.get(k).charAt(i) != guess.charAt(i)){
+						possibleAnswers.remove(k);
+						k--;
 					}
 				}
 			}
-			for(int i = 0; i < 5; i++){
-				if(feedback[i] == YELLOW){
-					for (String word:possibleAnswers) {
-						boolean haveYellow = false;
-						for(int j = 0; j < 5; j++){
-							if(word.charAt(j)==YELLOW && j != i)
-								haveYellow = true;
-						}
-						if(!haveYellow)
-							possibleAnswers.remove(word);
-
+		}
+		for(int i = 0; i < 5; i++){
+			if(feedback[i] == YELLOW){
+				for (int k = 0; k < possibleAnswers.size(); k++) {
+					boolean haveYellow = false;
+					// get rid of them or something if they don't have any yellows
+					for(int j = 0; j < 5; j++){
+//                    if any of the letters is the same as guess that was yellow thats not at the same location then make sure we don't delete it from list
+						if(possibleAnswers.get(k).charAt(j)==guess.charAt(i) && j != i)
+							haveYellow = true;
 					}
+					if(!haveYellow){
+						possibleAnswers.remove(k);
+						k--;
+					}
+
+
 				}
 			}
 		}
 
 
 
-		public static int countLetter(String word, char letter) {
+	}
+
+
+	public static int countLetter(String word, char letter) {
 			int count = 0;
 			for(int i = 0; i < word.length(); i++){
 				if(word.charAt(i) == letter) {
