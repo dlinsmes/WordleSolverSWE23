@@ -67,6 +67,7 @@ public class WordleSolver {
 			if(guess.charAt(i)==answer.charAt(i)){
 				feedback[i] = GREEN;
 				letters[i] = '&';
+				answerLetters[i] = '-';
 			}
 
 		}
@@ -90,6 +91,11 @@ public class WordleSolver {
 
 		}
 
+		for (int i : feedback){
+			System.out.print(i);
+		}
+		System.out.println();
+
 
 		return feedback;
 	}
@@ -105,7 +111,7 @@ public class WordleSolver {
 //        if there's a gray you know the exact number of characters but if there's no green then
 		for(int i = 0; i < 5; i++){
 			if(feedback[i] == GREEN){
-				System.out.println("Green");
+				// System.out.println("Green");
 				for (int k = 0; k < possibleWords.size(); k++){
 					if(possibleWords.get(k).charAt(i) != guess.charAt(i)){
 						possibleWords.remove(k);
@@ -116,7 +122,7 @@ public class WordleSolver {
 		}
 		for(int i = 0; i < 5; i++){
 			if(feedback[i] == YELLOW){
-				System.out.println("yellow");
+				// System.out.println("yellow");
 				for (int k = 0; k < possibleWords.size(); k++) {
 					boolean haveYellow = false;
 					// get rid of them or something if they don't have any yellows
@@ -137,7 +143,7 @@ public class WordleSolver {
 
 		for(int i = 0; i < 5; i++){
 			if(feedback[i] == GREY){
-				System.out.println("grey 1 ");
+				// System.out.println("grey 1 ");
 				for (int k = 0; k < possibleWords.size(); k++) {
 					boolean haveGrey = false;
 					// get rid of them or something if they don't have any yellows
@@ -158,7 +164,7 @@ public class WordleSolver {
 		for(int i = 0; i < 5; i++){
 			int greyInstanceCounter = 0;
 			if(feedback[i] == GREY) {
-				System.out.println("grey 2");
+				// System.out.println("grey 2");
 				for (int j = 0; j < 5; j++) {
 					if (guess.charAt(i) == guess.charAt(j) && feedback[j] == 0) {
 						greyInstanceCounter++;
