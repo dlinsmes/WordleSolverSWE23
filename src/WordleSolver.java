@@ -105,9 +105,10 @@ public class WordleSolver {
 //        if there's a gray you know the exact number of characters but if there's no green then
 		for(int i = 0; i < 5; i++){
 			if(feedback[i] == GREEN){
-				for (int k = 0; k < possibleAnswers.size(); k++){
-					if(possibleAnswers.get(k).charAt(i) != guess.charAt(i)){
-						possibleAnswers.remove(k);
+				System.out.println("Green");
+				for (int k = 0; k < possibleWords.size(); k++){
+					if(possibleWords.get(k).charAt(i) != guess.charAt(i)){
+						possibleWords.remove(k);
 						k--;
 					}
 				}
@@ -115,16 +116,17 @@ public class WordleSolver {
 		}
 		for(int i = 0; i < 5; i++){
 			if(feedback[i] == YELLOW){
-				for (int k = 0; k < possibleAnswers.size(); k++) {
+				System.out.println("yellow");
+				for (int k = 0; k < possibleWords.size(); k++) {
 					boolean haveYellow = false;
 					// get rid of them or something if they don't have any yellows
 					for(int j = 0; j < 5; j++){
 //                    if any of the letters is the same as guess that was yellow thats not at the same location then make sure we don't delete it from list
-						if(possibleAnswers.get(k).charAt(j)==guess.charAt(i) && j != i)
+						if(possibleWords.get(k).charAt(j)==guess.charAt(i) && j != i)
 							haveYellow = true;
 					}
 					if(!haveYellow){
-						possibleAnswers.remove(k);
+						possibleWords.remove(k);
 						k--;
 					}
 
@@ -133,8 +135,48 @@ public class WordleSolver {
 		}
 
 
+		for(int i = 0; i < 5; i++){
+			if(feedback[i] == GREY){
+				System.out.println("grey 1 ");
+				for (int k = 0; k < possibleWords.size(); k++) {
+					boolean haveGrey = false;
+					// get rid of them or something if they don't have any yellows
+					for(int j = 0; j < 5; j++){
+//                    if any of the letters is the same as guess that was yellow thats not at the same location then make sure we don't delete it from list
+						if(possibleWords.get(k).charAt(j)==guess.charAt(i) && j == i)
+							haveGrey = true;
+					}
+					if(haveGrey){
+						possibleWords.remove(k);
+						k--;
+					}
 
-	}
+
+				}
+			}
+		}
+		for(int i = 0; i < 5; i++){
+			int greyInstanceCounter = 0;
+			if(feedback[i] == GREY) {
+				System.out.println("grey 2");
+				for (int j = 0; j < 5; j++) {
+					if (guess.charAt(i) == guess.charAt(j) && feedback[j] == 0) {
+						greyInstanceCounter++;
+					}
+				}
+				int totalinstance = countLetter(guess, guess.charAt(i)) - greyInstanceCounter;
+				for (int k = 0; k < possibleWords.size(); k++) {
+					int eachLetterInstance = countLetter(possibleWords.get(k), guess.charAt(i));
+					if (eachLetterInstance > totalinstance || eachLetterInstance < totalinstance) {
+						possibleWords.remove(k);
+						k--;
+					}
+
+
+				}
+			}
+		}
+		}
 
 
 	public static int countLetter(String word, char letter) {
